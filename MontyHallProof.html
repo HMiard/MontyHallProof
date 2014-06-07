@@ -48,6 +48,10 @@
     	#result > * {
     		margin: 3% 0;
     	}
+
+    	#more {
+    		margin: 10% 0 5%;
+    	}
     </style>
 </head>
 
@@ -69,6 +73,14 @@
 			<div id="sw"></div>
 			<div id="sw2"></div>
 			<div id="sw3"></div>
+		</div>
+
+		<div id="more">
+			<div>Don't know what Monty Hall problem is ? Check out this video.</div>
+			<div><a href="https://www.youtube.com/watch?annotation_id=annotation_3286749133&feature=iv&src_vid=4Lb-6rxZxx0&v=ugbWqWCcxrg">
+				Monty Hall Problem
+				</a>
+			</div>
 		</div>
 	</div>
 
@@ -97,9 +109,7 @@
 		var x, y, k=0, sw=0, sw2=0, sw3=0;
 
 		while (k < m){
-
-			y = 0;
-
+		
 			doors.init(n);
 
 			// x is the door picked by the player
@@ -145,7 +155,7 @@
 
 		if (n != NaN && m != NaN && n > 0 && m > 0){
 
-			ret = begin(n, m);
+			begin(n, m);
 
 		}else{
 
