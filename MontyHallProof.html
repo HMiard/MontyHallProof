@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+    <title>Monty Hall Proof</title>
+    <style>
+    	#container {
+    		position: relative;
+    		text-align: center;
+    		width: 30%;
+    		margin: 2% auto;
+    		color: #333;
+    	}
+
+    	.title {
+    		font-size: 25px;
+    		text-decoration: underline;
+    		margin-bottom: 10%;
+    	}
+
+    	#poll > *{
+    		width: 100%;
+    		text-align: center;
+    	}
+
+    	input {
+    		margin: 2% 0 5%;
+    		padding: 2% 0;
+    	}
+
+    	#btn {
+    		padding: 3%;
+    		border: 1px solid #222;
+    		width: 40%;
+    		margin: 3% auto;
+    	}
+
+    	#btn:hover {
+    		border: 1px solid #359;
+    		color: #359;
+    		cursor: pointer;
+    	}
+
+    	#result {
+    		margin-top: 5%;
+    	}
+
+    	#result > * {
+    		margin: 3% 0;
+    	}
+    </style>
+</head>
+
+<body>
+	
+	<div id="container">
+		<div class="title">Monthy Hall Problem</div>
+		<div id="poll">
+			<label for="n">Number of doors :</label>
+			<input type="text" id="n"></input>
+			<label for="m">Number of repetitions :</label>
+			<input type="text" id="m"></input>
+		</div>
+		
+		<div id="btn" onclick="run();">Behold the truth</div>
+
+		<div id="result">
+			<div class="title">RESULTS</div>
+			<div id="sw"></div>
+			<div id="sw2"></div>
+			<div id="sw3"></div>
+		</div>
+	</div>
+
+</body>
+
+<script>
+
+	// Array initialisation
+	Array.prototype.init = function(n){
+
+		var x = Math.floor(Math.random()*n);
+
+		for (var i=0; i<n; ++i){
+			if(i==x) this[i] = 1;
+			else 	this[i] = 0;
+		}
+	}
+
+	
+	console.log("Use begin(n, m) method to repeat m times the experiment with n doors.");
+
+
+	function begin(n, m){
+
+		var doors = new Array();
+		var x, y, k=0, sw=0, sw2=0, sw3=0;
+
+		while (k < m){
+
+			y = 0;
+
+			doors.init(n);
+
+			// x is the door picked by the player
+			x = Math.floor(Math.random()*n);
+
+			// y is the door left after Monthy opened the others
+			// We check that this door isn't the door picked initially, and
+			// that both the doors does not contain a goat at the same time
+			// (one of them must be the one !!).
+			do{
+				y = Math.floor(Math.random()*n);
+			}while (y == x || (doors[x] == 0 && doors[y] == 0));
+
+			// We switch every time.
+			sw += doors[y];
+			// 50% chance of switching
+			sw2 += doors[ ((Math.floor(Math.random()*2) >= 1) ? x : y) ]
+			// Never switching
+			sw3 += doors[x];
+
+			k++;
+		}
+
+		console.log("------------------------RESULTS-----------------------");
+		console.log("Switching every time : "+sw+" right answers, over "+m+".");
+		console.log("50% chances of switching : "+sw2+" right answers, over "+m+".");
+		console.log("Never switching : "+sw3+" right answers, over "+m+".");
+
+		document.getElementById("sw").innerHTML =
+		"Switching every time : <b>"+sw+"</b> right answers, over "+m+".";
+		document.getElementById("sw2").innerHTML =
+		"50% chances of switching <b>"+sw2+"</b> right answers, over "+m+".";
+		document.getElementById("sw3").innerHTML =
+		"Never switching : <b>"+sw3+"</b> right answers, over "+m+".";
+	}
+
+
+	// Started from the button
+	function run(){
+
+		var n = parseInt(document.getElementById("n").value);
+		var m = parseInt(document.getElementById("m").value);
+
+		if (n != NaN && m != NaN && n > 0 && m > 0){
+
+			ret = begin(n, m);
+
+		}else{
+
+			document.getElementById("sw").innerHTML = 
+			"Please only enter positive integers.";
+			document.getElementById("sw2").innerHTML = "";
+			document.getElementById("sw3").innerHTML = "";
+		}
+	}
+
+</script>
+
+</html>
+
