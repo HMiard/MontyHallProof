@@ -108,6 +108,8 @@
 		var doors = new Array();
 		var x, y, k=0, sw=0, sw2=0, sw3=0;
 
+		if (n <= 2) n=3;
+
 		while (k < m){
 		
 			doors.init(n);
@@ -153,14 +155,14 @@
 		var n = parseInt(document.getElementById("n").value);
 		var m = parseInt(document.getElementById("m").value);
 
-		if (n != NaN && m != NaN && n > 0 && m > 0){
+		if (n != NaN && m != NaN && n > 2 && m > 0){
 
 			begin(n, m);
 
 		}else{
 
 			document.getElementById("sw").innerHTML = 
-			"Please only enter positive integers.";
+			"Please only enter positive integers. (3 doors at least !)";
 			document.getElementById("sw2").innerHTML = "";
 			document.getElementById("sw3").innerHTML = "";
 		}
